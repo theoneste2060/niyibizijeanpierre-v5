@@ -55,6 +55,12 @@
   <section class="content-section fade-in">
     <div class="container">
       
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="blog-search" placeholder="Search blog posts by title, description, or date..." aria-label="Search blog posts">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </div>
+      
       <div class="blog-grid">
         
         <!-- Blog Post 1 -->
@@ -99,7 +105,6 @@
           </div>
           <h2><a href="blog-ai-geotech.html">AI in Geotechnical Engineering: Smarter Foundations for a Sustainable Africa</a></h2>
           <p>How AI and data-driven geotechnical models improve soil analysis and infrastructure resilience in Rwanda.</p>
-          <span class="category">Engineering / AI</span>
           <a href="blog-ai-geotech.html" class="btn-secondary">Read More →</a>
         </article>
 
@@ -115,7 +120,6 @@
           </div>
           <h2><a href="blog-ai-structural-health.html">AI for Structural Health Monitoring in Africa</a></h2>
           <p>How AI-based monitoring enhances safety and predictive maintenance of bridges and buildings across Africa.</p>
-          <span class="category">Engineering / AI</span>
           <a href="blog-ai-structural-health.html" class="btn-secondary">Read More →</a>
         </article>
 
@@ -131,7 +135,6 @@
           </div>
           <h2><a href="blog-green-building-materials.html">Green Building Materials for a Sustainable Africa</a></h2>
           <p>Exploring eco-friendly construction materials driving sustainable urban growth in Rwanda and beyond.</p>
-          <span class="category">Sustainability / Construction</span>
           <a href="blog-green-building-materials.html" class="btn-secondary">Read More →</a>
         </article>
 
@@ -147,7 +150,6 @@
           </div>
           <h2><a href="blog-precision-irrigation.html">Precision Irrigation: Using AI and IoT to Save Water in African Farms</a></h2>
           <p>How smart irrigation powered by AI and IoT helps farmers improve yield and conserve water.</p>
-          <span class="category">Agriculture / AI</span>
           <a href="blog-precision-irrigation.html" class="btn-secondary">Read More →</a>
         </article>
 
@@ -163,7 +165,6 @@
           </div>
           <h2><a href="blog-ai-crop-disease.html">AI-Powered Crop Disease Detection for Smallholder Farmers</a></h2>
           <p>How AI image recognition tools help farmers detect plant diseases early and protect harvests.</p>
-          <span class="category">Agriculture / AI</span>
           <a href="blog-ai-crop-disease.html" class="btn-secondary">Read More →</a>
         </article>
 
@@ -185,6 +186,7 @@
   </footer>
 
   <script src="navbar.js"></script>
+  <script src="social-links.js"></script>
   <script>
     // Load view counts for all blog cards with localStorage fallback
     async function loadViewCounts() {
@@ -227,6 +229,25 @@
 
     // Load view counts when page loads
     document.addEventListener('DOMContentLoaded', loadViewCounts);
+
+    // Search functionality
+    const blogSearch = document.getElementById('blog-search');
+    blogSearch.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const blogCards = document.querySelectorAll('.blog-card');
+      
+      blogCards.forEach(card => {
+        const title = card.querySelector('h2').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const date = card.querySelector('.blog-date').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || date.includes(searchTerm)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
   </script>
 </body>
 </html>

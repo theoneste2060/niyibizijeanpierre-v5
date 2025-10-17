@@ -53,6 +53,11 @@
 
   <!-- Publications List -->
   <section class="pub-list">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" id="pub-search" placeholder="Search publications by title, author, or keywords..." aria-label="Search publications">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </div>
     <article class="pub-item">
       <h3>1️⃣ AI for Soil Stability: Predictive Modeling for Slope Failures in Rwanda</h3>
       <p><strong>Authors:</strong> NIYIBIZI Jean Pierre, et al.</p>
@@ -112,5 +117,26 @@
   </footer>
 
   <script src="navbar.js"></script>
+  <script src="social-links.js"></script>
+  <script>
+    // Search functionality for publications
+    const pubSearch = document.getElementById('pub-search');
+    pubSearch.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const pubItems = document.querySelectorAll('.pub-item');
+      
+      pubItems.forEach(item => {
+        const title = item.querySelector('h3').textContent.toLowerCase();
+        const abstract = item.querySelector('p:last-of-type').textContent.toLowerCase();
+        const authors = item.textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || abstract.includes(searchTerm) || authors.includes(searchTerm)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
